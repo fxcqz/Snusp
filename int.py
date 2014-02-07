@@ -100,7 +100,15 @@ class Snusp():
     def op_end(self):
         exit()
 
+    def dlr_search(self):
+        for y in range(len(self.prg)):
+            for x in range(len(self.prg[y])):
+                if self.prg[y][x] == "$":
+                    self.ptrx = x
+                    self.ptry = y
+
     def parse(self):
+        self.dlr_search()
         while True:
             op = self.readop()
             if op == "+":
