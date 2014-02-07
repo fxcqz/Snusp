@@ -52,8 +52,7 @@ class Snusp():
         self.cells[self.currcell] += 1
 
     def op_decr(self):
-        if self.cells[self.currcell] > 0:
-            self.cells[self.currcell] -= 1
+        self.cells[self.currcell] -= 1
 
     def op_movr(self):
         self.currcell += 1
@@ -66,10 +65,10 @@ class Snusp():
 
     def op_rdin(self):
         uin = raw_input("PROG IN: ")
-        self.cells[self.currcell] = uin[:1]
+        self.cells[self.currcell] = ord(uin[:1])
 
     def op_write(self):
-        print self.cells[self.currcell]
+        print chr(self.cells[self.currcell])
 
     def op_lurd(self):
         if self.ptrd == 0:
@@ -98,6 +97,9 @@ class Snusp():
         if self.cells[self.currcell] == 0:
             self.op_skp()
 
+    def op_end(self):
+        exit()
+
     def parse(self):
         while True:
             op = self.readop()
@@ -121,6 +123,8 @@ class Snusp():
                 self.op_skp()
             if op == "?":
                 self.op_skpz()
+            if op == "#":
+                self.op_end()
             self.nextptr()
             if self.running == 0:
                 break
