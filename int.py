@@ -9,6 +9,7 @@ class Snusp():
         self.currcell = 0
         self.running = 1
         self.debug = 0
+        self.callstack = []
 
     def ldprg(self, fname):
         with open(fname, 'r') as f:
@@ -98,7 +99,14 @@ class Snusp():
             self.op_skp()
 
     def op_end(self):
-        exit()
+        if self.cs_empty():
+            exit()
+        else:
+            self.ptrx = self.callstack[-1][0]
+            self.ptry = self.callstack[-1][1]
+            self.ptrd = self.callstack[-1][2]
+            self.cs_rm_ptr()
+            self.nextptr()
 
     def dlr_search(self):
         for y in range(len(self.prg)):
@@ -107,6 +115,20 @@ class Snusp():
                     self.ptrx = x
                     self.ptry = y
 
+    # stack functions
+    def cs_add_ptr(self):
+        lstmp = [self.ptrx, self.ptry, self.ptrd]
+        self.callstack.append(lstmp)
+
+    def cs_rm_ptr(self):
+        del self.callstack[-1]
+
+    def cs_empty(self):
+        if not self.callstack:
+            return True
+        return False
+
+    # interpreter functions
     def parse(self):
         self.dlr_search()
         while True:
@@ -133,6 +155,8 @@ class Snusp():
                 self.op_skpz()
             if op == "#":
                 self.op_end()
+            if op == "@":
+                self.cs_add_ptr()
             self.nextptr()
             if self.running == 0:
                 break
