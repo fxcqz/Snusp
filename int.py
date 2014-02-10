@@ -1,4 +1,5 @@
 #!/usr/bin/env Python
+import sys
 class Snusp():
     def __init__(self):
         self.ptrx = 0
@@ -14,6 +15,7 @@ class Snusp():
     def ldprg(self, fname):
         with open(fname, 'r') as f:
             self.prg = f.read().split('\n')
+        self.cells.append(0)
 
     def err(self, msg):
         if self.debug:
@@ -44,8 +46,9 @@ class Snusp():
             self.err("Notice: Pointer out of bounds. Ln: "+str(self.ptry)+", Col: "+str(self.ptrx))
 
     def readop(self):
-        if self.ptry < len(self.prg) and self.ptrx <= self.ptrx:
-            return si.prg[self.ptry][self.ptrx]
+        if self.ptry < len(self.prg):
+            if self.ptrx <= len(self.prg[self.ptry]):
+                return si.prg[self.ptry][self.ptrx]
         return "Out of bounds error!"
 
     def op_add(self):
@@ -162,5 +165,5 @@ class Snusp():
 
 if __name__ == "__main__":
     si = Snusp()
-    si.ldprg("pr1.sp")
+    si.ldprg(str(sys.argv[1]))
     si.parse()
