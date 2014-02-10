@@ -14,7 +14,6 @@ class Snusp():
     def ldprg(self, fname):
         with open(fname, 'r') as f:
             self.prg = f.read().split('\n')
-        self.cells.append(0) # init first mem cell
 
     def err(self, msg):
         if self.debug:
@@ -163,5 +162,5 @@ class Snusp():
 
 if __name__ == "__main__":
     si = Snusp()
-    si.ldprg("test.sp")
+    si.ldprg("pr1.sp")
     si.parse()
