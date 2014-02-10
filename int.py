@@ -34,16 +34,12 @@ class Snusp():
         # exit conditions
         if self.ptrx < 0:
             self.running = 0
-            self.err("Notice: Pointer out of bounds. Ln: "+str(self.ptry)+", Col: "+str(self.ptrx))
         if self.ptry < 0:
             self.running = 0
-            self.err("Notice: Pointer out of bounds. Ln: "+str(self.ptry)+", Col: "+str(self.ptrx))
         if self.ptrx >= len(self.prg[self.ptry]):
             self.running = 0
-            self.err("Notice: Pointer out of bounds. Ln: "+str(self.ptry)+", Col: "+str(self.ptrx))
         if self.ptry >= len(self.prg):
             self.running = 0
-            self.err("Notice: Pointer out of bounds. Ln: "+str(self.ptry)+", Col: "+str(self.ptrx))
 
     def readop(self):
         if self.ptry < len(self.prg):
